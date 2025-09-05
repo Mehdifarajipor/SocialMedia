@@ -1,0 +1,5 @@
+<h1>wellcome you logged in</h1>
+<form action="{% url 'Social:logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>

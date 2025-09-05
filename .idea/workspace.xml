@@ -5,26 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67b92490-a023-44b8-80f5-62361fe1da85" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/SocialMedia.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Social/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Social/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Social/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Social/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Social/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Social/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Social/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SocialMedia/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SocialMedia/asgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SocialMedia/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SocialMedia/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SocialMedia/wsgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Social/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Social/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Social/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Social/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SocialMedia/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SocialMedia/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,13 +18,24 @@
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="32B5tzHF5a4M69DxFRZw8ON82Pg" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -48,13 +43,15 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
-    "git-widget-placeholder": "master",
+    "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
+    "git-widget-placeholder": "dev",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -105,7 +102,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1756881343982</updated>
-      <workItem from="1756881345238" duration="962000" />
+      <workItem from="1756881345238" duration="5444000" />
+      <workItem from="1756965679581" duration="6405000" />
     </task>
     <servers />
   </component>
