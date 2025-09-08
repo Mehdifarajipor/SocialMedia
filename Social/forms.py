@@ -41,3 +41,22 @@ class RegisterForm(forms.ModelForm):
         if User.objects.filter(username=username).exists():
             raise forms.ValidationError("Username already in use")
         return username
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'phone_number', 'first_name', 'last_name', 'date_of_birth',
+                  'job', 'bio', 'photo']
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.exclude(id=self.instance.id).filter(username=username).exists():
+            raise forms.ValidationError("Username already in use")
+        return username
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data.get('phone_number')
+        if User.objects.exclude(id=self.instance.id).filter(phone_number=phone_number).exists():
+            raise forms.ValidationError("Username already in use")
+        return phone_number

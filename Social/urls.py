@@ -12,4 +12,5 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
     path('register/', views.register, name='register'),
+    path('user/edit/', views.user_edit, name='user_edit'),
 ]
