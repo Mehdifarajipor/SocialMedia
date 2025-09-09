@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
+from django.core.mail import send_mail
 
 from .forms import *
 
@@ -33,3 +34,23 @@ def user_edit(request):
     else:
         form = UserEditForm(instance=request.user)
     return render(request, 'registration/edit_user.html', {'form': form})
+
+
+def ticket(request):
+    sent = False
+    if request.method == 'POST':
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            message = f"{cd['author_name']}\n{cd['phone']}\n{cd['email']}\n\n{cd['message']}"
+            send_mail(
+                cd['subject'],
+                message,
+                'mehdifarajise666@gmail.com',
+                ['mahdifaraji13mf82@gmail.com'],
+                fail_silently=False,
+            )
+            sent = True
+    else:
+        form = TicketForm()
+    return render(request, 'forms/ticket.html', {'form': form, 'sent': sent})

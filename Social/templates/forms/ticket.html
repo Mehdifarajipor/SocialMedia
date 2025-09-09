@@ -1,0 +1,10 @@
+<h1>sent ticket to admin by email</h1>
+{% if sent %}
+    <h2 style="background: aqua; color: darkslategrey"> your ticket sent</h2>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">send</button>
+</form>

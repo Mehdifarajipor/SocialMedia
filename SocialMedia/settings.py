@@ -146,3 +146,10 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'Social.authentication.PhoneAuthBackend',
 )
+
+EMAIL_HOST = 'smtp.gmail.com' #ثابت
+EMAIL_PORT = 587  #ثابت
+EMAIL_USE_TLS = True # ثابت
+EMAIL_HOST_USER = 'mehdifarajise666@gmail.com'
+EMAIL_HOST_PASSWORD = 'zymy hvci fhgt feoz'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

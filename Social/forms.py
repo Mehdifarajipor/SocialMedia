@@ -60,3 +60,17 @@ class UserEditForm(forms.ModelForm):
         if User.objects.exclude(id=self.instance.id).filter(phone_number=phone_number).exists():
             raise forms.ValidationError("Username already in use")
         return phone_number
+
+
+class TicketForm(forms.Form):
+    SUBJECT_CHOICES = (
+        ('پیشنهاد', 'پیشنهاد'),
+        ('انتقاد', 'انتقاد'),
+        ('گزارش', 'گزارش')
+    )
+
+    author_name = forms.CharField(max_length=250, required=True)
+    message = forms.CharField(widget=forms.Textarea, required=True)
+    phone = forms.CharField(max_length=11, required=True)
+    email = forms.EmailField()
+    subject = forms.ChoiceField(choices=SUBJECT_CHOICES)

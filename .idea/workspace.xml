@@ -9,6 +9,7 @@
       <change beforePath="$PROJECT_DIR$/Social/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Social/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Social/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Social/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Social/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Social/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SocialMedia/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SocialMedia/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +105,7 @@
       <updated>1756881343982</updated>
       <workItem from="1756881345238" duration="5444000" />
       <workItem from="1756965679581" duration="8914000" />
-      <workItem from="1757137154930" duration="8161000" />
+      <workItem from="1757137154930" duration="14761000" />
     </task>
     <servers />
   </component>
