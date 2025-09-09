@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from Social.models import User
+from Social.models import *
 
 
 # Register your models here.
@@ -12,3 +12,9 @@ class UserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
         ('Additional info', {'fields': ('phone_number', 'bio', 'job', 'photo', 'date_of_birth')}),
     )
+
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ['author', 'created']
+    date_hierarchy = 'created'

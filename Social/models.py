@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -10,3 +11,20 @@ class User(AbstractUser):
     job = models.CharField(max_length=100, null=True, blank=True)
     phone_number = models.CharField(max_length=11, null=True, blank=True)
     photo = models.ImageField(upload_to='users_images/', null=True, blank=True)
+
+
+class Post(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    caption = models.TextField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    tags = TaggableManager()
+
+    def __str__(self):
+        return self.author.username
+
+    class Meta:
+        ordering = ['-created']
+        indexes = [
+            models.Index(fields=['-created']),
+        ]

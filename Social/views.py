@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 
 from .forms import *
+from .models import *
 
 # Create your views here.
 
@@ -54,3 +55,9 @@ def ticket(request):
     else:
         form = TicketForm()
     return render(request, 'forms/ticket.html', {'form': form, 'sent': sent})
+
+
+def post_list(request):
+    posts = Post.objects.all()
+    context = {'posts': posts}
+    return render(request, 'social/list.html', context)
