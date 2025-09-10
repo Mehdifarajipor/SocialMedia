@@ -9,6 +9,7 @@ app_name = 'Social'
 urlpatterns = [
     path('', views.index, name='index'),
     path('posts/', views.post_list, name='post_list'),
+    path('posts/<slug:tag_slug>/', views.post_list, name='post_list_by_tag'),
     path('login/', auth_views.LoginView.as_view(authentication_form=LoginForm), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
