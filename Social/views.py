@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 
 from taggit.models import Tag
@@ -28,6 +29,7 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 
+@login_required(login_url='login')
 def user_edit(request):
     if request.method == 'POST':
         form = UserEditForm(instance=request.user, data=request.POST, files=request.FILES)
@@ -39,6 +41,7 @@ def user_edit(request):
     return render(request, 'registration/edit_user.html', {'form': form})
 
 
+@login_required(login_url='login')
 def ticket(request):
     sent = False
     if request.method == 'POST':
@@ -61,8 +64,22 @@ def ticket(request):
 
 def post_list(request, tag_slug=None):
     posts = Post.objects.all()
+    tag = None
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         posts = Post.objects.filter(tags__in=[tag])
     context = {'posts': posts, 'tag': tag}
     return render(request, 'social/list.html', context)
+
+@login_required(login_url='login')
+def post_create(request):
+    if request.method == 'POST':
+        form = CreatePostForm(request.POST)
+        post = form.save(commit=False)
+        post.author = request.user
+        post.save()
+        form.save_m2m()
+        return redirect('Social:index')
+    else:
+        form = CreatePostForm()
+    return render(request, 'forms/post_create.html', {'form': form})
