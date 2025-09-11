@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.db.models import Count
 
 from taggit.models import Tag
 
@@ -83,3 +84,15 @@ def post_create(request):
     else:
         form = CreatePostForm()
     return render(request, 'forms/post_create.html', {'form': form})
+
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post_tags_ids = post.tags.values_list('id', flat=True)
+    similar_posts = Post.objects.filter(tags__in=post_tags_ids).exclude(pk=pk)
+    similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-created')
+    context = {
+        'post': post,
+        'similar_posts': similar_posts,
+    }
+    return render(request, 'social/detail.html', context)

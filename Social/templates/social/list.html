@@ -3,7 +3,7 @@
 {% endif %}
 
 {% for post in posts %}
-    {{ post.caption | truncatewords:5 }}
+    <a href="{% url 'Social:post_detail' post.id %}">{{ post.caption | truncatewords:5 }}</a>
     <br>
     <span style="color: darkgreen">post by: {{ post.author.username }}</span>
     <span style="color: blue">created at: {{ post.created }}</span>

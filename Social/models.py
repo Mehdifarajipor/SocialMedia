@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
+
 from taggit.managers import TaggableManager
 
 # Create your models here.
@@ -19,6 +21,9 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     tags = TaggableManager()
+
+    def get_absolute_url(self):
+        return reverse('Social:post_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.author.username
