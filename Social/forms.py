@@ -80,3 +80,7 @@ class CreatePostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['caption', 'tags']
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField(max_length=250, widget=forms.Textarea, required=True)

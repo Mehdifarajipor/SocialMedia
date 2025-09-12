@@ -1,3 +1,5 @@
+{% include 'partials/header.html' %}
+<br>
 <h1>wellcome {{ request.user }}, you logged in</h1>
 <form action="{% url 'Social:logout' %}" method="post">
     {% csrf_token %}

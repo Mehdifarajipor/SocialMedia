@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.db.models import Count
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 from taggit.models import Tag
 
@@ -96,3 +97,22 @@ def post_detail(request, pk):
         'similar_posts': similar_posts,
     }
     return render(request, 'social/detail.html', context)
+
+
+def post_search(request):
+    query = None
+    result = []
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            search_query = SearchQuery(query)
+            search_vector = SearchVector('caption', weight='A') + SearchVector('tags', weight='B')
+            search_rank = SearchRank(search_vector, search_query)
+            result = Post.objects.annotate(search=search_vector, rank=search_rank).filter(search=search_query)
+
+    context = {
+        'query': query,
+        'result': result,
+    }
+    return render(request, 'social/search.html', context)

@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67b92490-a023-44b8-80f5-62361fe1da85" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Social/templates/partials/header.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Social/templates/social/search.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Social/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Social/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Social/templates/social/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/Social/templates/social/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Social/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Social/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Social/templates/social/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Social/templates/social/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Social/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Social/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Social/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Social/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SocialMedia/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SocialMedia/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,6 +115,8 @@
       <workItem from="1757137154930" duration="24472000" />
       <workItem from="1757493686705" duration="2855000" />
       <workItem from="1757568054676" duration="7611000" />
+      <workItem from="1757657095158" duration="525000" />
+      <workItem from="1757660520383" duration="4727000" />
     </task>
     <servers />
   </component>
