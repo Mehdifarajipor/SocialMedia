@@ -4,8 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.db.models import Count
-from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
-
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
+from django.db.models.functions import Greatest
 from taggit.models import Tag
 
 from .forms import *
@@ -106,10 +106,15 @@ def post_search(request):
         form = SearchForm(request.GET)
         if form.is_valid():
             query = form.cleaned_data['query']
-            search_query = SearchQuery(query)
-            search_vector = SearchVector('caption', weight='A') + SearchVector('tags', weight='B')
-            search_rank = SearchRank(search_vector, search_query)
-            result = Post.objects.annotate(search=search_vector, rank=search_rank).filter(search=search_query)
+
+            # search_query = SearchQuery(query)
+            # search_vector = SearchVector('caption', weight='A') + SearchVector('tags', weight='B')
+            # search_rank = SearchRank(search_vector, search_query)
+            # result = Post.objects.annotate(search=search_vector, rank=search_rank).filter(search=search_query)
+
+            result = (Post.objects.annotate(similarity=Greatest(TrigramSimilarity('caption', query),
+                                                               TrigramSimilarity('tags__name', query)))
+                      .filter(similarity__gte=0.1).order_by('-similarity'))
 
     context = {
         'query': query,

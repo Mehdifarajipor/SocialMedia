@@ -1,7 +1,7 @@
 {% if query %}
     <h2>posts for {{ query }}: {{ result.count }}</h2>
     {% for post in result %}
-        <p>{{ post.caption | truncatewords:5 | linebreaks }}</p>
+        <a href="{{ post.get_absolute_url }}">{{ post.caption | truncatewords:5 | linebreaks }}</a>
         <p style="color: coral; background: tan">{{ post.author }}</p>
         <p style="color: darkgreen; background: yellow">{{ post.created }}</p>
     {% endfor %}
