@@ -4,7 +4,20 @@
 {% for tag in post.tags.all %}
     <a href="{% url 'Social:post_list_by_tag' tag %}">{{ tag }}</a>
 {% endfor %}
-
+<hr>
+<h3>comments: </h3>
+{% for cm in post.comments.all %}
+    <p style="background: lightseagreen; color: indigo">{{ cm.author }}: {{ cm.text }}</p>
+{% endfor %}
+<hr>
+<h3>add comment</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="add comment">
+</form>
+{% if commented %}<p style="color: darkred; background: mediumorchid">your comment added</p>{% endif %}
+<hr>
 <h2>similar posts</h2>
 {% for post in similar_posts %}
     <a href="{{post.get_absolute_url}}">{{ post.caption | truncatewords:5 }}</a>

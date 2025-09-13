@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, Post
+from .models import User, Post, Comment
 from django.contrib.auth.forms import AuthenticationForm
 
 
@@ -84,3 +84,9 @@ class CreatePostForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     query = forms.CharField(max_length=250, widget=forms.Textarea, required=True)
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text']

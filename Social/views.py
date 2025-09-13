@@ -92,9 +92,21 @@ def post_detail(request, pk):
     post_tags_ids = post.tags.values_list('id', flat=True)
     similar_posts = Post.objects.filter(tags__in=post_tags_ids).exclude(pk=pk)
     similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-created')
+    commented = False
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        comment = form.save(commit=False)
+        comment.author = request.user
+        comment.post = post
+        comment.save()
+        commented = True
+    else:
+        form = CommentForm()
     context = {
         'post': post,
         'similar_posts': similar_posts,
+        'form': form,
+        'commented': commented,
     }
     return render(request, 'social/detail.html', context)
 
