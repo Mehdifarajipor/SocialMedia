@@ -6,6 +6,8 @@ from django.core.mail import send_mail
 from django.db.models import Count
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
 from django.db.models.functions import Greatest
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger, InvalidPage, Page
+
 from taggit.models import Tag
 
 from .forms import *
@@ -70,6 +72,14 @@ def post_list(request, tag_slug=None):
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         posts = Post.objects.filter(tags__in=[tag])
+    paginator = Paginator(posts, 2)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
     context = {'posts': posts, 'tag': tag}
     return render(request, 'social/list.html', context)
 
