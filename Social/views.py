@@ -86,7 +86,7 @@ def post_list(request, tag_slug=None):
 @login_required(login_url='login')
 def post_create(request):
     if request.method == 'POST':
-        form = CreatePostForm(request.POST)
+        form = CreatePostForm(request.POST, request.FILES)
         post = form.save(commit=False)
         post.author = request.user
         post.save()
@@ -148,7 +148,7 @@ def post_search(request):
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
-        form = CreatePostForm(request.POST, instance=post)
+        form = CreatePostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             form.save()
             return redirect('Social:post_detail', pk=pk)

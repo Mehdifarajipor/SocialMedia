@@ -20,6 +20,7 @@ class Post(models.Model):
     caption = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    photo = models.ImageField(upload_to='post_images/', null=True, blank=True)
     tags = TaggableManager()
 
     def get_absolute_url(self):

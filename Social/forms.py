@@ -79,7 +79,7 @@ class TicketForm(forms.Form):
 class CreatePostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['caption', 'tags']
+        fields = ['caption', 'tags', 'photo']
 
 
 class SearchForm(forms.Form):
