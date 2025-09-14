@@ -1,0 +1,6 @@
+<h2>are you sure to delete {{ post }}</h2>
+<a href="{% url 'Social:post_detail' pk=post.pk %}">No</a>
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Yes">
+</form>

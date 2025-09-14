@@ -143,3 +143,24 @@ def post_search(request):
         'result': result,
     }
     return render(request, 'social/search.html', context)
+
+
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == 'POST':
+        form = CreatePostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('Social:post_detail', pk=pk)
+    else:
+        form = CreatePostForm(instance=post)
+    return render(request, 'forms/post_create.html', {'form': form})
+
+
+def post_delete(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == 'POST':
+        post.delete()
+        return redirect('Social:index')
+    return render(request, 'forms/post_delete.html', {'post': post})
+
