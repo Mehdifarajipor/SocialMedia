@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -7,6 +7,7 @@ from django.db.models import Count
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
 from django.db.models.functions import Greatest
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger, InvalidPage, Page
+from django.views.decorators.http import require_POST
 
 from taggit.models import Tag
 
@@ -164,3 +165,22 @@ def post_delete(request, pk):
         return redirect('Social:index')
     return render(request, 'forms/post_delete.html', {'post': post})
 
+
+@login_required
+@require_POST
+def like_post(request):
+    post_id = request.POST.get('post_id')
+    if post_id is not None:
+        post = get_object_or_404(Post, pk=post_id)
+        user = request.user
+        if user in post.likes.all():
+            post.likes.remove(user)
+            liked = False
+        else:
+            post.likes.add(user)
+            liked = True
+        post_like_count = post.likes.count()
+        response_data = {'like_count': post_like_count, 'liked': liked}
+    else:
+        response_data = {'error': 'Post does not exist'}
+    return JsonResponse(response_data)
