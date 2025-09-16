@@ -1,7 +1,7 @@
 {% if tag %}
     <h1>post for {{ tag }}</h1>
 {% endif %}
-
+<div id="post-list">
 {% for post in posts %}
     <a href="{% url 'Social:post_detail' post.id %}">{{ post.caption | truncatewords:5 }}</a>
     <br>
@@ -15,4 +15,23 @@
     {% endfor %}
     <hr>
 {% endfor %}
-{% include 'partials/pagination.html' with page=posts %}
+</div>
+<button id="load-more">load more</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function () {
+        var page = 2;
+        $('#load-more').click(function () {
+            $.ajax({
+                type: "GET",
+                url: "{% if tag %}{% url 'Social:post_list_by_tag' tag.slug%}{% else %}{% url 'Social:post_list' %}{% endif %}" + "?page=" + page,
+                dataType: 'html',
+                success: function (data) {
+                    $("#post-list").append(data)
+                    page++;
+                }
+            })
+        })
+    })
+</script>

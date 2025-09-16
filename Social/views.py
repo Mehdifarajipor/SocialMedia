@@ -80,7 +80,9 @@ def post_list(request, tag_slug=None):
     except PageNotAnInteger:
         posts = paginator.page(1)
     except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
+        posts = []
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request, 'social/list_ajax.html', {'posts': posts})
     context = {'posts': posts, 'tag': tag}
     return render(request, 'social/list.html', context)
 
