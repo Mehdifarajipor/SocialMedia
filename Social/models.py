@@ -22,6 +22,7 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     photo = models.ImageField(upload_to='post_images/', null=True, blank=True)
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
+    saved_by = models.ManyToManyField(User, related_name='saved_by', blank=True)
     tags = TaggableManager()
 
     def get_absolute_url(self):
