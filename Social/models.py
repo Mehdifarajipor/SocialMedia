@@ -13,6 +13,7 @@ class User(AbstractUser):
     job = models.CharField(max_length=100, null=True, blank=True)
     phone_number = models.CharField(max_length=11, null=True, blank=True)
     photo = models.ImageField(upload_to='users_images/', null=True, blank=True)
+    following = models.ManyToManyField('self', related_name='followers', symmetrical=False, through='Contact')
 
 
 class Post(models.Model):
@@ -49,3 +50,18 @@ class Comment(models.Model):
         indexes = [
             models.Index(fields=['-created']),
         ]
+
+
+class Contact(models.Model):
+    user_from = models.ForeignKey(User, related_name='rel_from_set', on_delete=models.CASCADE)
+    user_to = models.ForeignKey(User, related_name='rel_to_set', on_delete=models.CASCADE)
+    created_at = models.DateField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['-created_at']),
+        ]
+
+    def __str__(self):
+        return f"{self.user_from.username} follows {self.user_to.username}"
