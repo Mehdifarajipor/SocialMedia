@@ -203,3 +203,11 @@ def save_post(request):
             saved = True
         return JsonResponse({'saved': saved})
     return JsonResponse({'error': 'Post does not exist'})
+
+
+@login_required
+def profile(request):
+    context = {
+        'user': request.user,
+    }
+    return render(request, 'social/profile.html', context)

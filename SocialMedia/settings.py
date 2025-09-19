@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Social.apps.SocialConfig',
     'taggit',
+    'easy_thumbnails',
 ]
 
 MIDDLEWARE = [
@@ -155,3 +156,6 @@ EMAIL_USE_TLS = True # ثابت
 EMAIL_HOST_USER = 'mehdifarajise666@gmail.com'
 EMAIL_HOST_PASSWORD = 'zymy hvci fhgt feoz'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+EASY_THUMBNAIL_DEBUG = True

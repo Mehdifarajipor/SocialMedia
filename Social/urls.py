@@ -33,5 +33,6 @@ urlpatterns = [
     path('posts/<int:pk>/delete/', views.post_delete, name='post_delete'),
     path('like-post/', views.like_post, name='like_post'),
     path('save-post/', views.save_post, name='save_post'),
+    path('profile/', views.profile, name='profile'),
 
 ]
