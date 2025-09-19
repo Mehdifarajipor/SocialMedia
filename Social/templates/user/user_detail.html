@@ -1,0 +1,18 @@
+{% load static %}
+{% load thumbnail %}
+
+{% if user.photo %}
+    <a href="#">
+        <img src="{% thumbnail user.photo 100x0 quality=80 %}">
+    </a>
+{% else %}
+    <img src="{% static 'images/profile/Avatar.png' %}" width="100px">
+{% endif %}
+<a href="#">{{ user.username }}</a>
+<div>
+{% with total_followers=user.followers.count total_following=user.following.count %}
+    {{ total_followers }} followers    {{ total_following }} following
+{% endwith %}
+</div>
+<p>bio: {{ user.bio|default:'None' }}</p>
+<p>date_of_birth: {{ user.date_of_birth|default:'None' }}</p>

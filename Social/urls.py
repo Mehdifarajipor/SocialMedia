@@ -34,5 +34,7 @@ urlpatterns = [
     path('like-post/', views.like_post, name='like_post'),
     path('save-post/', views.save_post, name='save_post'),
     path('profile/', views.profile, name='profile'),
+    path('user-list/', views.user_list, name='user_list'),
+    path('user-detail/<username>/', views.user_detail, name='user_detail'),
 
 ]
