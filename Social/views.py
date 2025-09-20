@@ -225,4 +225,37 @@ def user_list(request):
 @login_required
 def user_detail(request, username):
     user = get_object_or_404(User, username=username)
-    return render(request, 'user/user_detail.html', {'user': user})
+    followers_count = user.followers.all().count()
+    following_count = user.following.all().count()
+    context = {
+        'user': user,
+        'followers_count': followers_count,
+        'following_count': following_count,
+    }
+    return render(request, 'user/user_detail.html', context)
+
+
+@login_required
+@require_POST
+def follow(request):
+    user_id = request.POST.get('id')
+    if user_id:
+        try:
+            user = User.objects.get(id=user_id)
+            if request.user in user.followers.all():
+                Contact.objects.get(user_from=request.user, user_to=user).delete()
+                followed = False
+            else:
+                Contact.objects.get_or_create(user_from=request.user, user_to=user)
+                followed = True
+            followers_count = user.followers.count()
+            following_count = user.following.count()
+            return JsonResponse({
+                'followed': followed,
+                'followers_count': followers_count,
+                'following_count': following_count,
+            })
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'User does not exist'})
+    else:
+        return JsonResponse({'error': 'User Id does not exist'})

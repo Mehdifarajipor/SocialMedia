@@ -9,10 +9,50 @@
     <img src="{% static 'images/profile/Avatar.png' %}" width="100px">
 {% endif %}
 <a href="#">{{ user.username }}</a>
-<div>
-{% with total_followers=user.followers.count total_following=user.following.count %}
-    {{ total_followers }} followers    {{ total_following }} following
-{% endwith %}
-</div>
+{% if request.user == user %}
+    <button disabled>
+        {% if request.user in user.followers.all %}
+            UnFollow
+        {% else %}
+            Follow
+        {% endif %}
+    </button>
+{% else %}
+    <button class="follow-button">
+        {% if request.user in user.followers.all %}
+            UnFollow
+        {% else %}
+            Follow
+        {% endif %}
+    </button>
+{% endif %}
+<span class="followers-count">{{ followers_count }} follower{{ followers_count|pluralize }}</span>
+<span class="following-count">{{ following_count }} following</span>
+
 <p>bio: {{ user.bio|default:'None' }}</p>
 <p>date_of_birth: {{ user.date_of_birth|default:'None' }}</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function(){
+        $('.follow-button').click(function(){
+            var button = $(this);
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'Social:follow' %}",
+                data: {'id': '{{ user.id }}', 'csrfmiddlewaretoken': '{{ csrf_token }}' },
+                success: function(data){
+                    if(data.followed){
+                        button.text('UnFollow');
+                    }
+                    else {
+                        button.text('Follow');
+                    }
+                    $('.followers-count').text(data.followers_count + 'follower{{ followers_count | pluralize }}');
+                    $('.following-count').text(data.following_count + 'following');
+                }
+            });
+        });
+    })
+</script>
