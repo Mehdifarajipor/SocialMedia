@@ -25,6 +25,7 @@ class Post(models.Model):
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
     saved_by = models.ManyToManyField(User, related_name='saved_by', blank=True)
     tags = TaggableManager()
+    total_likes = models.PositiveIntegerField(default=0)
 
     def get_absolute_url(self):
         return reverse('Social:post_detail', kwargs={'pk': self.pk})
