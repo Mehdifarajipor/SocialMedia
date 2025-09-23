@@ -8,6 +8,7 @@ from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.db.models.functions import Greatest
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger, InvalidPage, Page
 from django.views.decorators.http import require_POST
+from django.contrib import messages
 
 from taggit.models import Tag
 
@@ -48,7 +49,6 @@ def user_edit(request):
 
 @login_required(login_url='login')
 def ticket(request):
-    sent = False
     if request.method == 'POST':
         form = TicketForm(request.POST)
         if form.is_valid():
@@ -61,10 +61,10 @@ def ticket(request):
                 ['mahdifaraji13mf82@gmail.com'],
                 fail_silently=False,
             )
-            sent = True
+            messages.success(request, 'Your ticket has been sent.')
     else:
         form = TicketForm()
-    return render(request, 'forms/ticket.html', {'form': form, 'sent': sent})
+    return render(request, 'forms/ticket.html', {'form': form})
 
 
 def post_list(request, tag_slug=None):

@@ -1,7 +1,8 @@
 <h1>sent ticket to admin by email</h1>
-{% if sent %}
-    <h2 style="background: aqua; color: darkslategrey"> your ticket sent</h2>
-{% endif %}
+
+{% for message in messages %}
+    {{ message }}
+{% endfor %}
 
 <form method="post">
     {% csrf_token %}
