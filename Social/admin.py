@@ -26,3 +26,8 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ['author', 'created']
     date_hierarchy = 'created'
     inlines = [CommentInline]
+
+
+@admin.register(Ticket)
+class TicketAdmin(admin.ModelAdmin):
+    list_display = ['author_name', 'subject']

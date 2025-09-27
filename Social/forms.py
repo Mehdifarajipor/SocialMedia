@@ -69,10 +69,7 @@ class TicketForm(forms.Form):
         ('گزارش', 'گزارش')
     )
 
-    author_name = forms.CharField(max_length=250, required=True)
     message = forms.CharField(widget=forms.Textarea, required=True)
-    phone = forms.CharField(max_length=11, required=True)
-    email = forms.EmailField()
     subject = forms.ChoiceField(choices=SUBJECT_CHOICES)
 
 

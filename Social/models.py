@@ -66,3 +66,16 @@ class Contact(models.Model):
 
     def __str__(self):
         return f"{self.user_from.username} follows {self.user_to.username}"
+
+
+class Ticket(models.Model):
+    author_name = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    subject = models.CharField(max_length=250)
+    created = models.DateTimeField(auto_now_add=True)
+    answered = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.author_name}: {self.subject}"
+
+    
