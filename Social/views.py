@@ -53,7 +53,7 @@ def ticket(request):
         form = TicketForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            message = f"({request.user.username})\n\n{cd['message']}"
+            message = f"({request.user.username} with email: {request.user.email})\n\n{cd['message']}"
             send_mail(
                 cd['subject'],
                 message,

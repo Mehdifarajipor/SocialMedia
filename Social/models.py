@@ -78,4 +78,14 @@ class Ticket(models.Model):
     def __str__(self):
         return f"{self.author_name}: {self.subject}"
 
-    
+
+class TicketReply(models.Model):
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    author_name = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Ticket({str(self.ticket.author_name)}: {self.ticket.subject}) => TicketReply({self.author_name}: {self.message})"
+
+
