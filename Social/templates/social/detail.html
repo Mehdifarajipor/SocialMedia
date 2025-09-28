@@ -1,3 +1,6 @@
+{% load social_share %}
+{% post_to_telegram 'look at this ' post 'share on telegram' %}
+{% post_to_twitter 'look at this ' post 'share on twitter' %}
 <div class="post" data-post-id="{{ post.id }}">
     {% if post.photo %}
         <img src="{{ post.photo.url }}">
