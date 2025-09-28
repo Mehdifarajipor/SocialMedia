@@ -208,8 +208,24 @@ def save_post(request):
 
 @login_required
 def profile(request):
+    following = request.user.following.all()
+    followers = request.user.followers.all()
+    followers_paginator = Paginator(followers, 5)
+    following_paginator = Paginator(following, 5)
+    followers_page = request.GET.get('followers_page')
+    following_page = request.GET.get('following_page')
+    followers = followers_paginator.get_page(followers_page)
+    following = following_paginator.get_page(following_page)
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        if 'followers_page' in request.GET:
+            return render(request, 'social/followers_ajax.html', {'followers': followers})
+        if 'following_page' in request.GET:
+            return render(request, 'social/following_ajax.html', {'following': following})
+
     context = {
         'user': request.user,
+        'following': following,
+        'followers': followers,
     }
     return render(request, 'social/profile.html', context)
 

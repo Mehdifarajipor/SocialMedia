@@ -9,4 +9,75 @@
     {% else %}
         <img src="{% static 'images/profile/Avatar.png' %}" width="100px">
     {% endif %}
+    <h2>{{ user.username }}</h2>
+
+    <p>Followers: {{ user.followers.count }}</p>
+    <div class="followers-list">
+        {% for member in followers %}
+            {{ member.username }}<br>
+        {% empty %}
+            <p>No followers yet.</p>
+        {% endfor %}
+    </div>
+    {% if followers.has_next %}
+        <button id="followers-more">Load more</button>
+    {% endif %}
+
+    <p>Following: {{ user.following.count }}</p>
+    <div class="following-list">
+        {% for member in following %}
+            {{ member.username }}<br>
+        {% empty %}
+            <p>Not following anyone yet.</p>
+        {% endfor %}
+    </div>
+    {% if following.has_next %}
+        <button id="following-more">Load more</button>
+    {% endif %}
 {% endwith %}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    $(document).ready(function () {
+        var followers_page = 2;
+        var following_page = 2;
+
+        $('#followers-more').click(function () {
+            $.ajax({
+                type: "GET",
+                url: "{% url 'Social:profile' %}?followers_page=" + followers_page,
+                dataType: 'html',
+                success: function (data) {
+                    $(".followers-list").append(data);
+                    followers_page++;
+
+                    {#اگه دیگه صفحه بعدی نبود، دکمه رو مخفی کن#}
+                    if (!data.trim()) {
+                        $('#followers-more').hide();
+                    }
+                }
+            })
+        });
+
+        $('#following-more').click(function () {
+            $.ajax({
+                type: "GET",
+                url: "{% url 'Social:profile' %}?following_page=" + following_page,
+                dataType: 'html',
+                success: function (data) {
+                    $(".following-list").append(data);
+                    following_page++;
+
+                    //اگه دیگه صفحه بعدی نبود، دکمه رو مخفی کن
+                    if (!data.trim()) {
+                        $('#following-more').hide();
+                    }
+                }
+            })
+        });
+    });
+</script>
