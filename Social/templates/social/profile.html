@@ -37,6 +37,21 @@
 {% endwith %}
 
 
+<h3 style="color:red;">Recent Activity</h3>
+<ul>
+  {% for act in activities %}
+    <li>
+      {{ act.action_time|date:"Y-m-d H:i" }} :
+      {{ act.get_action_flag_display }}
+      <strong>{{ act.object_repr }}</strong>
+      ({{ act.change_message }})
+    </li>
+  {% empty %}
+    <li>No recent activity</li>
+  {% endfor %}
+</ul>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>

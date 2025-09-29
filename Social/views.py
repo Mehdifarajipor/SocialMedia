@@ -14,6 +14,7 @@ from taggit.models import Tag
 
 from .forms import *
 from .models import *
+from .utils import *
 
 # Create your views here.
 
@@ -121,6 +122,7 @@ def post_detail(request, pk):
         'similar_posts': similar_posts,
         'form': form,
         'commented': commented,
+        'like_count': post.likes.all().count(),
     }
     return render(request, 'social/detail.html', context)
 
@@ -226,6 +228,7 @@ def profile(request):
         'user': request.user,
         'following': following,
         'followers': followers,
+        'activities': user_activities(request.user),
     }
     return render(request, 'social/profile.html', context)
 
