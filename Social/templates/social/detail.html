@@ -33,17 +33,24 @@
 {% endfor %}
 <hr>
 <h3>comments: </h3>
-{% for cm in post.comments.all %}
-    <p style="background: lightseagreen; color: indigo">{{ cm.author }}: {{ cm.text }}</p>
-{% endfor %}
-<hr>
-<h3>add comment</h3>
-<form method="post">
+<div class="comment-list">
+    {% for cm in post.comments.all %}
+        <p style="background: lightseagreen; color: indigo">
+            {{ cm.author }}: {{ cm.text }}
+        </p>
+    {% endfor %}
+</div>
+
+<h3>Add Comment</h3>
+<form class="comment-form" method="post" action="{% url 'Social:comment' %}">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="add comment">
+    <input type="hidden" name="post_id" value="{{ post.id }}">
+    <button type="submit">Add Comment</button>
 </form>
-{% if commented %}<p style="color: darkred; background: mediumorchid">your comment added</p>{% endif %}
+
+<div class="comment-errors" style="color: red;"></div>
+
 <hr>
 <h2>similar posts</h2>
 {% for post in similar_posts %}
@@ -92,5 +99,43 @@
                 },
             });
         });
+        $('.comment-form').submit(function(e) {
+        e.preventDefault();
+        var form = $(this);
+        var url = form.attr('action');
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: form.serialize(),
+            dataType: 'json',
+            success: function(data) {
+                if (data.success) {
+                    // اضافه کردن کامنت جدید به لیست
+                    $('.comment-list').append(
+                        '<p style="background: lightseagreen; color: indigo">'
+                        + data.author + ': ' + data.text + '</p>'
+                    );
+                    // فرم رو خالی می‌کنیم
+                    form[0].reset();
+                    // ارورها رو خالی می‌کنیم
+                    $('.comment-errors').empty();
+                }
+            },
+            error: function(xhr) {
+                // ارورهای فرم رو نشون می‌ده
+                if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    var errors = xhr.responseJSON.errors;
+                    var errorHtml = '';
+                    for (var field in errors) {
+                        errorHtml += errors[field].join('<br>') + '<br>';
+                    }
+                    $('.comment-errors').html(errorHtml);
+                } else {
+                    $('.comment-errors').html('An error occurred.');
+                }
+            }
+        });
+    });
     })
 </script>

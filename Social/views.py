@@ -11,6 +11,7 @@ from django.views.decorators.http import require_POST
 from django.contrib import messages
 
 from taggit.models import Tag
+import json
 
 from .forms import *
 from .models import *
@@ -107,21 +108,11 @@ def post_detail(request, pk):
     post_tags_ids = post.tags.values_list('id', flat=True)
     similar_posts = Post.objects.filter(tags__in=post_tags_ids).exclude(pk=pk)
     similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-created')
-    commented = False
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        comment = form.save(commit=False)
-        comment.author = request.user
-        comment.post = post
-        comment.save()
-        commented = True
-    else:
-        form = CommentForm()
+    form = CommentForm()
     context = {
         'post': post,
         'similar_posts': similar_posts,
         'form': form,
-        'commented': commented,
         'like_count': post.likes.all().count(),
     }
     return render(request, 'social/detail.html', context)
@@ -279,3 +270,27 @@ def follow(request):
             return JsonResponse({'error': 'User does not exist'})
     else:
         return JsonResponse({'error': 'User Id does not exist'})
+
+
+@login_required
+@require_POST
+def comment(request):
+    post_id = request.POST.get('post_id')
+    post = get_object_or_404(Post, id=post_id)
+    form = CommentForm(request.POST)
+
+    if form.is_valid():
+        comment_obj = form.save(commit=False)
+        comment_obj.author = request.user
+        comment_obj.post = post
+        comment_obj.save()
+        return JsonResponse({
+            'success': True,
+            'author': comment_obj.author.username,
+            'text': comment_obj.text,
+        })
+    else:
+        return JsonResponse({
+            'success': False,
+            'errors': form.errors,
+        }, status=400)
